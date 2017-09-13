@@ -7,7 +7,7 @@ public class Node {
     public Node previous;
 
     public void displayNode() {
-        System.out.println("{ " + data + " }");
+        System.out.print("{" + data + "} ");
     }
 
 }
