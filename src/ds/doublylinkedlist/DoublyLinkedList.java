@@ -72,7 +72,29 @@ public class DoublyLinkedList {
     }
 
     public boolean insertAfter(int key, int data) {
+        Node current = first;
 
+        while (current.data != key) {
+            current = current.next;
+
+            if (current == null) return false;
+        }
+
+        Node newNode = new Node();
+        newNode.data = data;
+
+        if(current == last) {
+            current.next = null;
+            last = newNode;
+        } else {
+            newNode.next = current.next;
+            current.next.provious = newNode;
+        }
+
+        newNode.provious = current;
+        current.next = newNode;
+
+        return true;
     }
 
 
