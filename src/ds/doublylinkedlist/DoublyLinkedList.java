@@ -21,7 +21,7 @@ public class DoublyLinkedList {
         if (isEmpty()) {
             last = newNode;
         } else {
-            first.provious = newNode;
+            first.previous = newNode;
         }
 
         newNode.next = first;
@@ -36,7 +36,7 @@ public class DoublyLinkedList {
             first = newNode;
         } else {
             last.next = newNode;
-            newNode.provious = last;
+            newNode.previous = last;
         }
 
         last = newNode;
@@ -49,7 +49,7 @@ public class DoublyLinkedList {
         if (first.next == null) {
             last = null;
         } else {
-            first.next.provious = null;
+            first.next.previous = null;
         }
 
         first = first.next;
@@ -63,10 +63,10 @@ public class DoublyLinkedList {
         if (first.next == null) {
             first = null;
         } else {
-            last.provious.next = null;
+            last.previous.next = null;
         }
 
-        last = last.provious;
+        last = last.previous;
 
         return temp;
     }
@@ -83,27 +83,58 @@ public class DoublyLinkedList {
         Node newNode = new Node();
         newNode.data = data;
 
-        if(current == last) {
+        if (current == last) {
             current.next = null;
             last = newNode;
         } else {
             newNode.next = current.next;
-            current.next.provious = newNode;
+            current.next.previous = newNode;
         }
 
-        newNode.provious = current;
+        newNode.previous = current;
         current.next = newNode;
 
         return true;
     }
 
+    public Node deleteKey(int key) {
+        Node current = first;
 
-    public void displayList() {
+        while (current.data != key) {
+            current = current.next;
+            if (current == null) return null;
+        }
+
+        if (current == first) {
+            first = current.next;
+        } else if (current == last) {
+            current.previous.next = null;
+            last = current.previous;
+        } else {
+            current.next.previous = current.previous;
+            current.previous.next = current.next;
+        }
+
+        return current;
+    }
+
+
+    public void displayForward() {
         System.out.println("List (first --> Last)");
         Node current = first;
         while (current != null) {
             current.displayNode();
             current = current.next;
+        }
+        System.out.println();
+    }
+
+    public void displayBack() {
+        System.out.println("List (last --> first)");
+        Node current = last;
+        while (current != null) {
+            current.displayNode();
+            current = current.previous;
         }
         System.out.println();
     }
