@@ -19,10 +19,10 @@ public class App {
         array[9] = 910;
 
 
-        System.out.println("Index: " + findIndex(array, 710));
-        System.out.println("Index: " + findIndex(array, 410));
-        System.out.println("Index: " + findIndex(array, 110));
-        System.out.println("Index: " + findIndex(array, 999));
+        System.out.println("Index: " + findIndexRecursive(array, 0, array.length - 1, 710));
+        System.out.println("Index: " + findIndexRecursive(array, 0, array.length - 1, 410));
+        System.out.println("Index: " + findIndexRecursive(array, 0, array.length - 1, 110));
+        System.out.println("Index: " + findIndexRecursive(array, 0, array.length - 1, 999));
     }
 
 
@@ -49,6 +49,27 @@ public class App {
         }
 
         return -1;
+    }
+
+    public static int findIndexRecursive(int[] array, int begging, int end, int value) {
+        if (begging > end) {
+            // not found
+            return -1;
+        }
+
+        int mid = (begging + end) / 2;
+
+        if (array[mid] == value) {
+            return mid;
+        }
+
+        if (array[mid] > value) {
+            end = mid - 1;
+        } else {
+            begging = mid + 1;
+        }
+
+        return findIndexRecursive(array, begging, end, value);
     }
 
 }
